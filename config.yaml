@@ -1,0 +1,22 @@
+# Training configuration
+n_epochs: 40000
+batch_size: 64
+lr: 0.0002
+b1: 0.5
+b2: 0.999
+latent_dim: 100
+n_classes: 8
+n_critic: 5
+clip_value: 0.01
+sample_interval: 400
+
+# Data settings
+data_path: "data/data_mm.pth"
+labels_path: "data/labels.pth"
+
+# CSI shape
+height: 30
+width: 50
+
+# Output
+output_path: "outputs/"
