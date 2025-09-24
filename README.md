@@ -13,6 +13,10 @@ A subset of the GAN-generated dataset is available here:
 
 ---
 
+
+![generate_new](https://github.com/user-attachments/assets/fea671eb-3503-4dbf-a5e7-94cd5b5b7964)
+
+
 ## Dataset
 
 Place your CSI dataset in the `data/` folder:
