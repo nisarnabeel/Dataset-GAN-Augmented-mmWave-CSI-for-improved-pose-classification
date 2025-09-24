@@ -38,23 +38,12 @@ Place your CSI dataset in the `data/` folder:
 
 All dataset and hyperparameter options can be set in the **`config.yaml`** file, including:
 
-# Data settings
-Place the data in the dataset folder
-data_path: "data/data_mm.pth"
-labels_path: "data/labels.pth"
+**Usage: python train.py**
 
-# CSI shape
-height: 30
-width: 50
 
-# Output
-output_path: "outputs/"
-
-Citation
+## Citation
 If you use this repository or dataset, please cite:
 
-bibtex
-Copy code
 @inproceedings{bhat2024csi4free,
   title={CSI4Free: GAN-Augmented mmWave CSI for Improved Pose Classification},
   author={Bhat, Nabeel Nisar and Berkvens, Rafael and Famaey, Jeroen},
