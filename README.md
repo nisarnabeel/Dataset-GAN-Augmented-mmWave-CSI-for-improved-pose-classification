@@ -39,19 +39,8 @@ Place your CSI dataset in the `data/` folder:
 
 All dataset and hyperparameter options can be set in the **`config.yaml`** file, including:
 
-# Training configuration
-n_epochs: 40000
-batch_size: 64
-lr: 0.0002
-b1: 0.5
-b2: 0.999
-latent_dim: 100
-n_classes: 8
-n_critic: 5
-clip_value: 0.01
-sample_interval: 400
-
 # Data settings
+Place the data in the dataset folder
 data_path: "data/data_mm.pth"
 labels_path: "data/labels.pth"
 
