@@ -3,7 +3,7 @@
 This repository contains the code for the paper:
 
 **CSI4Free: GAN-Augmented mmWave CSI for Improved Pose Classification**  
-*Nabeel Nisar Bhat, et al.*  
+*Nabeel Nisar Bhat; Rafael Berkvens; Jeroen Famaey.*  
 [Link to Paper](https://ieeexplore.ieee.org/document/10646223)
 
 In this work, we show how to perform **stable training of GANs** with mmWave CSI. Using **WGAN**, we can generate an arbitrarily large dataset to augment limited real-world CSI data for **improved pose classification**.
