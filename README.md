@@ -26,7 +26,7 @@ Place your CSI dataset in the `data/` folder:
 
 - **WGAN-GP** for stable training  
 - **Conditional GAN (cWGAN)** for class-specific sample generation  
-- Modular code for:
+- Code for:
   - Loading datasets  
   - Training GANs  
   - Saving generated CSI data  
