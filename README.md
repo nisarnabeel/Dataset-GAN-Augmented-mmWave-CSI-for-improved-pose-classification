@@ -31,7 +31,6 @@ Place your CSI dataset in the `data/` folder:
   - Training GANs  
   - Saving generated CSI data  
   - Tracking generator/discriminator losses  
-- Easy dataset augmentation for downstream pose classification
 
 ---
 
