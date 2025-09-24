@@ -21,11 +21,6 @@ A subset of the GAN-generated dataset is available here:
 
 Place your CSI dataset in the `data/` folder:
 
-data/
-├── data_mm.pth # CSI data tensor
-└── labels.pth # Corresponding labels
-
-
 
 ## Features
 
