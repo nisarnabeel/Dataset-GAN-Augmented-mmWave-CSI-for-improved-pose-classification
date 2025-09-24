@@ -39,23 +39,28 @@ Place your CSI dataset in the `data/` folder:
 
 All dataset and hyperparameter options can be set in the **`config.yaml`** file, including:
 
-```yaml
-dataset: mmWGesture         # Choose dataset: mmWGesture, 5GmmGesture, mmWPose, etc.
-epochs: 40000               # Number of training epochs
-batch_size: 32
-lr: 0.0002                  # Learning rate
-latent_dim: 100             # Noise vector dimension
-n_critic: 5                 # Discriminator steps per generator step
-background: false           # For datasets with background augmentation
-This allows easy modification of training parameters without editing the code directly.
+# Training configuration
+n_epochs: 40000
+batch_size: 64
+lr: 0.0002
+b1: 0.5
+b2: 0.999
+latent_dim: 100
+n_classes: 8
+n_critic: 5
+clip_value: 0.01
+sample_interval: 400
 
-Optional Command-Line Arguments
-Argument	Default	Description
---n_epochs	40000	Number of training epochs
---batch_size	64	Training batch size
---lr	0.0002	Learning rate for generator and discriminator
---latent_dim	100	Dimension of the latent noise vector
---n_critic	5	Number of discriminator updates per generator update
+# Data settings
+data_path: "data/data_mm.pth"
+labels_path: "data/labels.pth"
+
+# CSI shape
+height: 30
+width: 50
+
+# Output
+output_path: "outputs/"
 
 Citation
 If you use this repository or dataset, please cite:
