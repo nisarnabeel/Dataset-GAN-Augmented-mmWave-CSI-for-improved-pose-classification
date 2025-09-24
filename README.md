@@ -3,12 +3,12 @@
 This repository contains the code for the paper:
 
 **CSI4Free: GAN-Augmented mmWave CSI for Improved Pose Classification**  
-*Nabeel Nisar Bhat; Rafael Berkvens; Jeroen Famaey.*  
+*Nabeel Nisar Bhat; Rafael Berkvens; Jeroen Famaey*  
 [Link to Paper](https://ieeexplore.ieee.org/document/10646223)
 
-In this work, we show how to perform **stable training of GANs** with mmWave CSI. Using **WGAN**, we can generate an arbitrarily large dataset to augment limited real-world CSI data for **improved pose classification**.
+In this work, we demonstrate **stable GAN training** on mmWave CSI data. Using a **Wasserstein GAN (WGAN)**, we can generate synthetic CSI samples to augment limited real-world datasets, improving performance in **pose classification** tasks.
 
-A subset of the GAN-generated dataset can be accessed here:  
+A subset of the GAN-generated dataset is available here:  
 [Zenodo Dataset](https://zenodo.org/records/10702154)
 
 ---
@@ -21,46 +21,55 @@ data/
 ├── data_mm.pth # CSI data tensor
 └── labels.pth # Corresponding labels
 
+yaml
+Copy code
+
+- `data_mm.pth` → Tensor of shape `(N, 1, 30, 50)`  
+- `labels.pth` → Tensor of shape `(N,)` with integer class labels  
+- `N` = Number of samples
+
+---
+
 ## Features
 
-- Stable GAN Training with **Wasserstein GAN + Gradient Penalty (WGAN-GP)**  
-- Conditional GAN (cWGAN) for **class-specific synthetic CSI samples**  
-- Code:
+- **WGAN-GP** for stable training  
+- **Conditional GAN (cWGAN)** for class-specific sample generation  
+- Modular code for:
   - Loading datasets  
   - Training GANs  
   - Saving generated CSI data  
   - Tracking generator/discriminator losses  
-- Dataset augmentation for downstream **pose classification**
+- Easy dataset augmentation for downstream pose classification
 
+---
 
-## Repository Structure
+## Configuration
 
-CSI4Free/
-│
-├── train.py # Main training script
-├── models/ # Model definitions
-│ ├── generator.py
-│ └── discriminator.py
-├── utils/ # Helper functions
-│ └── data_loader.py # For loading CSI data
-├── data/ # Place CSI dataset files here
-│ ├── data_mm.pth
-│ └── labels.pth
-├── outputs/ # Generated data & losses (created after training)
-└── README.md
+All dataset and hyperparameter options can be set in the **`config.yaml`** file, including:
 
+```yaml
+dataset: mmWGesture         # Choose dataset: mmWGesture, 5GmmGesture, mmWPose, etc.
+epochs: 40000               # Number of training epochs
+batch_size: 32
+lr: 0.0002                  # Learning rate
+latent_dim: 100             # Noise vector dimension
+n_critic: 5                 # Discriminator steps per generator step
+background: false           # For datasets with background augmentation
+This allows easy modification of training parameters without editing the code directly.
 
-**Optional Arguments:**
+Optional Command-Line Arguments
 Argument	Default	Description
 --n_epochs	40000	Number of training epochs
 --batch_size	64	Training batch size
 --lr	0.0002	Learning rate for generator and discriminator
---latent_dim	100	Dimension of noise vector
+--latent_dim	100	Dimension of the latent noise vector
 --n_critic	5	Number of discriminator updates per generator update
 
+Citation
+If you use this repository or dataset, please cite:
 
-
-**Citation**
+bibtex
+Copy code
 @inproceedings{bhat2024csi4free,
   title={CSI4Free: GAN-Augmented mmWave CSI for Improved Pose Classification},
   author={Bhat, Nabeel Nisar and Berkvens, Rafael and Famaey, Jeroen},
