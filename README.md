@@ -25,14 +25,7 @@ data/
 ├── data_mm.pth # CSI data tensor
 └── labels.pth # Corresponding labels
 
-yaml
-Copy code
 
-- `data_mm.pth` → Tensor of shape `(N, 1, 30, 50)`  
-- `labels.pth` → Tensor of shape `(N,)` with integer class labels  
-- `N` = Number of samples
-
----
 
 ## Features
 
