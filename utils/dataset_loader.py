@@ -4,7 +4,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 import os
 
-def load_csi_dataset(data_path="data", batch_size=32, test_size=0.25):
+def dataset_loader(data_path="data", batch_size=32, test_size=0.25):
     """
     Load CSI dataset for training WGAN.
 
@@ -41,7 +41,9 @@ def load_csi_dataset(data_path="data", batch_size=32, test_size=0.25):
     tlabels = tlabels.to(torch.int64)
 
     # Split into train and test
-    X_train, X_test, y_train, y_test = train_test_split(tdata, tlabels, test_size=test_size, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        tdata, tlabels, test_size=test_size, random_state=42
+    )
 
     train_dataset = TensorDataset(X_train, y_train)
     test_dataset = TensorDataset(X_test, y_test)

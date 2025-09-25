@@ -5,29 +5,32 @@ class Generator(nn.Module):
     def __init__(self, opt):
         super(Generator, self).__init__()
 
-        # Use dot notation instead of dict indexing
-        self.height = opt.height
-        self.width = opt.width
-        self.latent_dim = opt.latent_dim
-        self.n_classes = opt.n_classes
+        self.height = opt['height']   # was opt.height
+        self.width = opt['width']     # was opt.width
+        self.channels = opt['channels']
+        self.latent_dim = opt['latent_dim']
+        self.n_classes = opt['n_classes']
 
-        self.output_dim = self.height * self.width  # 30 * 50 = 1500
+        self.label_emb = nn.Embedding(self.n_classes, self.n_classes)
 
-        # Label embedding
-        self.label_emb = nn.Embedding(self.n_classes, self.latent_dim)
+        def block(in_feat, out_feat, normalize=True):
+            layers = [nn.Linear(in_feat, out_feat)]
+            if normalize:
+                layers.append(nn.BatchNorm1d(out_feat, 0.8))
+            layers.append(nn.LeakyReLU(0.2, inplace=True))
+            return layers
 
-        # Fully connected network to upscale
         self.model = nn.Sequential(
-            nn.Linear(self.latent_dim * 2, 512),
-            nn.ReLU(True),
-            nn.Linear(512, 1024),
-            nn.ReLU(True),
-            nn.Linear(1024, self.output_dim),
+            *block(self.latent_dim + self.n_classes, 128, normalize=False),
+            *block(128, 256),
+            *block(256, 512),
+            *block(512, 2048),
+            nn.Linear(2048, self.height * self.width),
             nn.Tanh()
         )
 
-    def forward(self, noise, labels):
-        # Combine noise + label embedding
-        gen_input = torch.cat((noise, self.label_emb(labels)), -1)
-        output = self.model(gen_input)
-        return output.view(output.size(0), 1, self.height, self.width)
+    def forward(self, z, labels):
+        gen_input = torch.cat((self.label_emb(labels), z), -1)
+        img = self.model(gen_input)
+        img = img.view(img.size(0), self.channels, self.height, self.width)
+        return img

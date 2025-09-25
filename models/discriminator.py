@@ -5,35 +5,25 @@ class Discriminator(nn.Module):
     def __init__(self, opt):
         super(Discriminator, self).__init__()
 
-        # Use dot notation instead of dict indexing
-        self.height = opt.height
-        self.width = opt.width
-        self.n_classes = opt.n_classes
+        self.height = opt['height']   # was opt.height
+        self.width = opt['width']     # was opt.width
+        self.channels = opt['channels']
+        self.n_classes = opt['n_classes']
 
-        self.input_dim = self.height * self.width  # 30 * 50 = 1500
+        self.label_embedding = nn.Embedding(self.n_classes, self.n_classes)
 
-        # Embedding for labels
-        self.label_embedding = nn.Embedding(self.n_classes, self.input_dim)
-
-        # Model for joint [CSI + label] input
         self.model = nn.Sequential(
-            nn.Linear(self.input_dim * 2, 1024),
+            nn.Linear(self.height * self.width + self.n_classes, 512),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(1024, 512),
+            nn.Linear(512, 512),
+            nn.Dropout(0.4),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Linear(512, 1)  # output single scalar
+            nn.Linear(512, 1),
         )
 
-    def forward(self, data, labels):
-        # Flatten the input data [batch, 1, 30, 50] -> [batch, 1500]
-        data_flat = data.view(data.size(0), -1)
-
-        # Get label embedding
-        label_emb = self.label_embedding(labels)
-
-        # Concatenate data + label
-        combined_input = torch.cat((data_flat, label_emb), -1)
-
-        # Pass through the discriminator network
-        validity = self.model(combined_input)
+    def forward(self, img, labels):
+        d_in = torch.cat(
+            (img.view(img.size(0), -1), self.label_embedding(labels)), -1
+        )
+        validity = self.model(d_in)
         return validity
