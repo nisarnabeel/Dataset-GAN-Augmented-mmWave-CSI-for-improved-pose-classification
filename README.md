@@ -52,3 +52,10 @@ If you use this repository or dataset, please cite:
   year={2024},
   organization={IEEE}
 }
+
+### ⚡ **New Release**
+
+We have released a **new dataset, [mmHSense](https://ieee-dataport.org/documents/mmhsense-multi-modal-and-distributed-mmwave-isac-datasets-human-sensing),** available on IEEE Dataport.  
+📄 The corresponding paper is available on [arXiv:2509.21396](https://arxiv.org/abs/2509.21396).
+
+🚀 **_Check it out — this is our latest and most comprehensive multi-modal mmWave ISAC dataset!_**
