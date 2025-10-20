@@ -36,7 +36,7 @@ Place your CSI dataset in the `data/` folder:
 
 ## Configuration
 
-All dataset and hyperparameter options can be set in the **`config.yaml`** file, including:
+All dataset and hyperparameter options can be set in the **`config.yaml`** file
 
 **Usage: python train.py**
 
